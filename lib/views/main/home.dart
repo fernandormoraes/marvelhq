@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marvelhq/constants.dart';
 import 'package:marvelhq/controllers/usuarios.dart';
+import 'package:marvelhq/favorites/favorites.dart';
 import 'package:marvelhq/models/usuario.dart';
 import 'package:marvelhq/views/main/screenComics.dart';
 import 'package:marvelhq/views/main/screenCharacters.dart';
@@ -23,6 +24,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     fetchUsuario('usuario', 'senha').then((value) => HomePage.user = value);
+
+    Favorites fav = new Favorites();
+    print("aqui");
+    print(fav.readAllFavorites().toString());
 
     super.initState();
   }

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:marvelhq/constants.dart';
 import 'package:marvelhq/controllers/comics.dart';
 import 'package:marvelhq/models/comic.dart';
+import 'package:marvelhq/favorites/favorites.dart';
 
 class DetailComics extends StatefulWidget {
   static String routeName = '/detailComics';
   static Comic comic;
   final String id;
+  static Favorites fav = new Favorites();
 
   const DetailComics({Key key, @required this.id}) : super(key: key);
 
@@ -62,6 +64,13 @@ class _DetailComicsState extends State<DetailComics> {
                 width: 200,
                 height: 400,
               ),
+            ),
+            TextButton(
+              child: const Text('ADD TO BOOKMARK'),
+              onPressed: ()
+                {
+                    DetailComics.fav.addFavorite(DetailComics.comic);
+                  },
             ),
             ListTile(
               title: Text(DetailComics.comic.titulo),

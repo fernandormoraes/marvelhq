@@ -25,11 +25,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     List<DisplayItem> displayList = [
       DisplayItem(
         textMessage: 'Marvel HQ Library',
-        imagePath: 'assets/images/avengers.svg',
+        imagePath: 'assets/images/hero1.svg',
       ),
       DisplayItem(
         textMessage: 'Welcome to the Marvel Universe!',
-        imagePath: 'assets/images/shield.svg',
+        imagePath: 'assets/images/hero2.svg',
       ),
       DisplayItem(
         textMessage: 'All HQs in your hand!',
@@ -45,7 +45,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           SafeArea(
             child: Column(
               children: [
-                //Image.asset('assets/images/logo_preto.png'),
                 Container(
                   child: Center(
                     child: PageView.builder(
