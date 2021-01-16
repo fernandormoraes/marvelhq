@@ -7,6 +7,6 @@ import 'package:marvelhq/views/entrar/signin_screen.dart';
 final Map<String, WidgetBuilder> route = {
   OnBoardingScreen.routeName: (context) => OnBoardingScreen(),
   SignInScreen.routeName: (context) => SignInScreen(),
-  ScreenComics.routeName: (context) => ScreenComics(usuario: null,),
+  ScreenComics.routeName: (context) => ScreenComics(),
   HomePage.routeName: (context) => HomePage(usuario: null,),
 };

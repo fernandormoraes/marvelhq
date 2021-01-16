@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:marvelhq/constants.dart';
 import 'package:marvelhq/controllers/comics.dart';
-import 'package:marvelhq/models/usuario.dart';
+import 'package:marvelhq/views/componentes/searchComic.dart';
+import 'package:marvelhq/views/detail/detailComics.dart';
 
 class ScreenComics extends StatefulWidget {
   static String routeName = '/screenComics';
   static List listComics;
-
-  final Usuario usuario;
-
-  const ScreenComics({Key key, @required this.usuario}) : super(key: key);
+  final List<String> list = List.generate(10, (index) => "Texto $index");
 
   @override
   _ScreenComicsState createState() => _ScreenComicsState();
@@ -29,50 +27,97 @@ class _ScreenComicsState extends State<ScreenComics> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Comics"), backgroundColor: kPrimaryColor),
-      body: new ListView.builder(
-        itemCount: ScreenComics.listComics == null ? 0 : ScreenComics.listComics.length,
-        itemBuilder: (BuildContext context, int index){
-          return new Card(
-            margin: EdgeInsets.all(10.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20), // if you need this
-              side: BorderSide(
-                color: Colors.grey.withOpacity(0.2),
-                width: 1,
-              ),
-            ),
-            child: InkWell(
-              splashColor: Colors.red.withAlpha(30),
-              onTap: () {
-                //TODO
+      appBar: new AppBar(
+          title: new Text("Comics"),
+          backgroundColor: kPrimaryColor,
+          actions: <Widget>[
+            IconButton(
+              onPressed: (){
+                showSearch(context: context, delegate: Search(ScreenComics.listComics));
               },
-              child: Container(
-                padding: EdgeInsets.all(20.0),
-                width: 200,
-                height: 150,
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      ScreenComics.listComics[index].titulo,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
+              icon: Icon(Icons.search),
+            )
+          ]
+      ),
+      body: listViewComics()
+    );
+  }
+
+  Widget listViewComics(){
+    return ListView.builder(
+      itemCount: ScreenComics.listComics == null ? 0 : ScreenComics.listComics.length,
+      itemBuilder: (BuildContext context, int index){
+        return new Card(
+          margin: EdgeInsets.all(10.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(
+              color: Colors.grey.withOpacity(0.2),
+              width: 1,
+            ),
+          ),
+          child: InkWell(
+            splashColor: Colors.red.withAlpha(30),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailComics(id: ScreenComics.listComics[index].id.toString()),
+                  )
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(20.0),
+              width: 200,
+              height: 500,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: Row(
+                      children: <Widget>[
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.network(
+                              ScreenComics.listComics[index].thumb == null ? '' :
+                                                ScreenComics.listComics[index].thumb  + '/portrait_xlarge.jpg',
+                              width: 100,
+                              height: 200,
+                            ),
+                          ),
+                        Flexible(
+                          child: Text(
+                            ScreenComics.listComics[index].titulo,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                Flexible(
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          ScreenComics.listComics[index].descricao == null ? '' :
+                          'Description: ' + ScreenComics.listComics[index].descricao,
+                          textAlign: TextAlign.left,
                         ),
+                        Text(
+                          ScreenComics.listComics[index].serie == null ? '' :
+                          'Series Name: ' + ScreenComics.listComics[index].serie,
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
                     ),
-                    Text(
-                        ScreenComics.listComics[index].descricao == null ? '' :
-                        ScreenComics.listComics[index].descricao.length > 150 ? 'Descrição: ' +
-                            ScreenComics.listComics[index].descricao.substring(0, 150) + '...' : '',
-                        textAlign: TextAlign.left,
-                    ),
-                 ],
-                ),
+                  )
+                ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -140,28 +185,6 @@ class _ScreenComicsState extends State<ScreenComics> {
           ),
         ],
       ),
-    );
-  }
-
-  Container buildContainerHeader() {
-    return Container(
-      padding: EdgeInsets.only(left: 20, top: 20, bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text('Olá,',
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20)),
-          Text(widget.usuario.fantasia,
-              style: TextStyle(
-                  color: kPrimaryColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20)),
-        ],
-      ),
-      width: double.infinity,
     );
   }
 

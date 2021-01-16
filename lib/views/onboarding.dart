@@ -28,11 +28,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         imagePath: 'assets/images/avengers.svg',
       ),
       DisplayItem(
-        textMessage: 'Suas HQs aqui!!!',
+        textMessage: 'Welcome to the Marvel Universe!',
         imagePath: 'assets/images/shield.svg',
       ),
       DisplayItem(
-        textMessage: 'Consulta ilimitada!',
+        textMessage: 'All HQs in your hand!',
         imagePath: 'assets/images/avengers.svg',
       )
     ];
@@ -45,7 +45,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           SafeArea(
             child: Column(
               children: [
-                Image.asset('assets/images/logo_preto.png'),
+                //Image.asset('assets/images/logo_preto.png'),
                 Container(
                   child: Center(
                     child: PageView.builder(
@@ -72,7 +72,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ),
                     BotaoPadrao(
                         screenWidth: screenWidth,
-                        insideTitle: 'Continuar',
+                        insideTitle: 'Keep going',
                         acao: () {
                           Navigator.pushNamed(context, SignInScreen.routeName);
                         }),
@@ -80,13 +80,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: RichText(
                         text: TextSpan(
-                            text: 'Ainda não possui seu acesso? ',
+                            text: 'Lost your password? ',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w200),
                             children: [
                               TextSpan(
-                                  text: 'Solicite aqui!',
+                                  text: 'Remember right here!',
                                   style: TextStyle(fontWeight: FontWeight.bold))
                             ]),
                       ),

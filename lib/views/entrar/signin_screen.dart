@@ -64,7 +64,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
             SizedBox(height: screenHeight * 0.05),
             BotaoPadrao(
               screenWidth: screenWidth,
-              insideTitle: 'Conectar',
+              insideTitle: 'Connect',
               acao: () {
                 if (_formKey.currentState.validate()) {
                   fetchUsuario(emailController.text, passController.text)
@@ -93,12 +93,12 @@ Widget _cpf(TextEditingController controller) {
     // ignore: missing_return
     validator: (value) {
       if (value.isEmpty) {
-        return 'Preencha o Usuário';
+        return 'User is empty';
       }
     },
     cursorColor: Colors.black,
     decoration: InputDecoration(
-        labelText: 'USUÁRIO',
+        labelText: 'USER',
         labelStyle: TextStyle(color: Colors.grey),
         focusedBorder:
         UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey))),
@@ -111,12 +111,12 @@ Widget _senha(TextEditingController controller) {
     // ignore: missing_return
     validator: (value) {
       if (value.isEmpty) {
-        return 'Preencha a senha';
+        return 'Password is empty';
       }
     },
     obscureText: true,
     decoration: InputDecoration(
-        labelText: 'SENHA',
+        labelText: 'PASSWORD',
         labelStyle: TextStyle(color: Colors.grey),
         focusedBorder:
         UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey))),

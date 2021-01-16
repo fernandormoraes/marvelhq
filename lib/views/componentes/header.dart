@@ -8,14 +8,14 @@ Column Header() {
     children: [
       RichText(
         text: TextSpan(
-            text: 'Quase lá',
+            text: 'Almost there',
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30),
             children: <TextSpan>[
               TextSpan(text: '!', style: TextStyle(color: kPrimaryColor))
             ]),
       ),
-      Text('Apenas preencha os dados abaixo')
+      Text('Just use your credentials below')
     ],
   );
 }

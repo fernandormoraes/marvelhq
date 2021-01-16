@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:marvelhq/constants.dart';
-import 'package:marvelhq/controllers/characters.dart';
-import 'package:marvelhq/models/character.dart';
+import 'package:marvelhq/controllers/creators.dart';
 import 'package:marvelhq/models/usuario.dart';
 
-class ScreenCharacters extends StatefulWidget {
-  static String routeName = '/screenCharacters';
-  static List listCharacters;
+class ScreenCreators extends StatefulWidget {
+  static String routeName = '/screenCreators';
+  static List listCreators;
 
   final Usuario usuario;
 
-  const ScreenCharacters({Key key, @required this.usuario}) : super(key: key);
+  const ScreenCreators({Key key, @required this.usuario}) : super(key: key);
 
   @override
-  _ScreenCharactersState createState() => _ScreenCharactersState();
+  _ScreenCreatorsState createState() => _ScreenCreatorsState();
 }
 
-class _ScreenCharactersState extends State<ScreenCharacters> {
+class _ScreenCreatorsState extends State<ScreenCreators> {
   @override
   void initState(){
-    fetchCharacters('2d08c338cd539b38c8deb94bf4cb56ddbe7ec905', '892844cca6563f962d4212b66bfd070c')
+    fetchCreators('2d08c338cd539b38c8deb94bf4cb56ddbe7ec905', '892844cca6563f962d4212b66bfd070c')
         .then((value) async{
-      ScreenCharacters.listCharacters = value;
+      ScreenCreators.listCreators = value;
     });
 
     super.initState();
@@ -30,9 +29,9 @@ class _ScreenCharactersState extends State<ScreenCharacters> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Characters"), backgroundColor: kPrimaryColor),
+      appBar: new AppBar(title: new Text("Creators"), backgroundColor: kPrimaryColor),
       body: new ListView.builder(
-        itemCount: ScreenCharacters.listCharacters == null ? 0 : ScreenCharacters.listCharacters.length,
+        itemCount: ScreenCreators.listCreators == null ? 0 : ScreenCreators.listCreators.length,
         itemBuilder: (BuildContext context, int index){
           return new Card(
             margin: EdgeInsets.all(10.0),
@@ -51,21 +50,15 @@ class _ScreenCharactersState extends State<ScreenCharacters> {
               child: Container(
                 padding: EdgeInsets.all(20.0),
                 width: 200,
-                height: 150,
+                height: 80,
                 child: Column(
                   children: <Widget>[
                     Text(
-                      ScreenCharacters.listCharacters[index].nome,
+                      ScreenCreators.listCreators[index].nome,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    Text(
-                      ScreenCharacters.listCharacters[index].descricao == null ? '' :
-                      ScreenCharacters.listCharacters[index].descricao.length > 150 ? 'Descrição: ' +
-                          ScreenCharacters.listCharacters[index].descricao.substring(0, 150) + '...' : '',
-                      textAlign: TextAlign.left,
                     ),
                   ],
                 ),

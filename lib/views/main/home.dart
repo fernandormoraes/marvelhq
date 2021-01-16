@@ -4,6 +4,7 @@ import 'package:marvelhq/controllers/usuarios.dart';
 import 'package:marvelhq/models/usuario.dart';
 import 'package:marvelhq/views/main/screenComics.dart';
 import 'package:marvelhq/views/main/screenCharacters.dart';
+import 'package:marvelhq/views/main/screenCreators.dart';
 import 'package:sizer/sizer.dart';
 
 class HomePage extends StatefulWidget {
@@ -63,13 +64,13 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Painel do Usuário',
+                  'User Panel',
                   style: TextStyle(
                     color: Colors.grey,
                   ),
                 ),
                 Text(
-                  'Teste',
+                  '',
                   style: TextStyle(
                       color: Colors.red,
                       fontSize: 20,
@@ -103,7 +104,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('Bem vindo(a),',
+          Text('Welcome,',
               style: TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.bold,
@@ -140,7 +141,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ScreenComics(usuario: HomePage.user),
+                    builder: (context) => ScreenComics(),
                   )
               );
             },
@@ -153,6 +154,18 @@ class _HomePageState extends State<HomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ScreenCharacters(usuario: HomePage.user),
+                  )
+              );
+            },
+          ),
+          ListTile(
+            title: Text('Creators'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ScreenCreators(usuario: HomePage.user),
                   )
               );
             },
