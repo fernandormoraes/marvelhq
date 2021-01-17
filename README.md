@@ -1,18 +1,18 @@
-# Marvel HQ
+## Marvel HQ Library
 
 Flutter application using Marvel API.
 
-## Getting Started
+## Getting started
 
-Mocked credentials
-Username: user
+Mocked credentials:
+User: user
 Password: pass
 
-
-##TODO LIST
+## TODO LIST
 
 Favorite list;
 All visual improvements;
 Get more data from the API;
 User panel;
 Detail for all routes.
+
