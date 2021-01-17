@@ -18,7 +18,7 @@ class _ScreenComicsState extends State<ScreenComics> {
   void initState(){
     fetchComic('2d08c338cd539b38c8deb94bf4cb56ddbe7ec905', '892844cca6563f962d4212b66bfd070c')
         .then((value) async{
-          ScreenComics.listComics = value;
+      ScreenComics.listComics = value;
     });
 
     super.initState();
@@ -44,82 +44,105 @@ class _ScreenComicsState extends State<ScreenComics> {
   }
 
   Widget listViewComics(){
-    return ListView.builder(
-      itemCount: ScreenComics.listComics == null ? 0 : ScreenComics.listComics.length,
-      itemBuilder: (BuildContext context, int index){
-        return new Card(
-          margin: EdgeInsets.all(10.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-            side: BorderSide(
-              color: Colors.grey.withOpacity(0.2),
-              width: 1,
-            ),
-          ),
-          child: InkWell(
-            splashColor: Colors.red.withAlpha(30),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailComics(id: ScreenComics.listComics[index].id.toString()),
-                  )
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.all(20.0),
-              width: 200,
-              height: 500,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: Row(
-                      children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.network(
-                              ScreenComics.listComics[index].thumb == null ? '' :
-                                                ScreenComics.listComics[index].thumb  + '/portrait_xlarge.jpg',
-                              width: 100,
-                              height: 200,
+    return Container(
+       child: FutureBuilder<List>(
+         future: fetchComic('2d08c338cd539b38c8deb94bf4cb56ddbe7ec905',
+             '892844cca6563f962d4212b66bfd070c'),
+           // ignore: missing_return
+        builder: (context, snapshot) {
+           if(snapshot.hasData){
+             return ListView.builder(
+              itemCount: ScreenComics.listComics == null ? 0 : ScreenComics.listComics.length,
+              itemBuilder: (BuildContext context, int index){
+                return new Card(
+                  margin: EdgeInsets.all(10.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(
+                      color: Colors.grey.withOpacity(0.2),
+                      width: 1,
+                    ),
+                  ),
+                  child: InkWell(
+                    splashColor: Colors.red.withAlpha(30),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailComics(id: ScreenComics.listComics[index].id.toString(),
+                                                               titulo: ScreenComics.listComics[index].titulo),
+                          )
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20.0),
+                      width: 200,
+                      height: 500,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            child: Row(
+                              children: <Widget>[
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.network(
+                                      ScreenComics.listComics[index].thumb == null ? '' :
+                                                        ScreenComics.listComics[index].thumb  + '/portrait_xlarge.jpg',
+                                      width: 100,
+                                      height: 200,
+                                    ),
+                                  ),
+                                Flexible(
+                                  child: Text(
+                                    ScreenComics.listComics[index].titulo,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         Flexible(
-                          child: Text(
-                            ScreenComics.listComics[index].titulo,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  ScreenComics.listComics[index].descricao == null ? '' :
+                                  'Description: ' + ScreenComics.listComics[index].descricao,
+                                  textAlign: TextAlign.left,
+                                ),
+                                Text(
+                                  ScreenComics.listComics[index].serie == null ? '' :
+                                  'Series Name: ' + ScreenComics.listComics[index].serie,
+                                  textAlign: TextAlign.left,
+                                ),
+                              ],
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                Flexible(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          ScreenComics.listComics[index].descricao == null ? '' :
-                          'Description: ' + ScreenComics.listComics[index].descricao,
-                          textAlign: TextAlign.left,
-                        ),
-                        Text(
-                          ScreenComics.listComics[index].serie == null ? '' :
-                          'Series Name: ' + ScreenComics.listComics[index].serie,
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
-      },
+                );
+              }
+            );
+        }else if(snapshot.hasError){
+             return Center(
+               child: Text(
+                 'Fail'
+               ),
+             );
+        }else{
+           return Center(
+             child: CircularProgressIndicator(),
+           );
+        }
+      }
+    )
     );
   }
+
 
   Container buildComics() {
     return Container(

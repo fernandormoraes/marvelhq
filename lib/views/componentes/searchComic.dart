@@ -66,7 +66,8 @@ class Search extends SearchDelegate{
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DetailComics(id: suggestionList[index].id.toString()),
+                    builder: (context) => DetailComics(id: suggestionList[index].id.toString(),
+                                                       titulo: suggestionList[index].titulo),
                   )
               );
             },

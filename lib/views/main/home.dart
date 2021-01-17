@@ -26,8 +26,6 @@ class _HomePageState extends State<HomePage> {
     fetchUsuario('usuario', 'senha').then((value) => HomePage.user = value);
 
     Favorites fav = new Favorites();
-    print("aqui");
-    print(fav.readAllFavorites().toString());
 
     super.initState();
   }

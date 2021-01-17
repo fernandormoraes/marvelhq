@@ -58,7 +58,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
       child: Container(
         child: Column(
           children: [
-            _cpf(emailController),
+            _user(emailController),
             SizedBox(height: screenHeight * 0.03),
             _senha(passController),
             SizedBox(height: screenHeight * 0.05),
@@ -70,12 +70,14 @@ class _FormularioLoginState extends State<FormularioLogin> {
                   fetchUsuario(emailController.text, passController.text)
                       .then((value) {
                         Usuario user = value;
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomePage(usuario: user),
-                            )
-                        );
+                        if (user != null) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(usuario: user),
+                              )
+                          );
+                        }
                   });
                 }
               },
@@ -87,7 +89,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
   }
 }
 
-Widget _cpf(TextEditingController controller) {
+Widget _user(TextEditingController controller) {
   return TextFormField(
     controller: controller,
     // ignore: missing_return

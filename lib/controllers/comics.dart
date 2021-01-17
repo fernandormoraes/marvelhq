@@ -6,10 +6,9 @@ import 'package:crypto/crypto.dart';
 Future<List<Comic>> fetchComic(String privatekey, publickey)  async {
   final String hash = md5.convert(utf8.encode('1' + privatekey + publickey))
       .toString();
-  final String url =
-      'https://gateway.marvel.com/v1/public/comics?ts=1&apikey=$publickey&hash=$hash&limit=100';
+  final response = await http.get(
+      'https://gateway.marvel.com/v1/public/comics?ts=1&apikey=$publickey&hash=$hash&limit=100');
 
-  final response = await http.get(url);
   if (response.statusCode == 200) {
     final rest = json.decode(response.body);
     final rest2 = rest["data"];
